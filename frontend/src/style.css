@@ -1,0 +1,58 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body {
+    background: rgba(0,0,0,0.9);
+    font-family: 'Open Sans', sans-serif;
+    color: #ffffff;
+    vertical-align: text-top;
+    overflow: hidden;
+    position: relative;
+}
+
+div {
+    display:inline-block;
+    width: 100%;
+}
+
+table {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    table-layout: fixed;
+    border-collapse: collapse;
+    font-size: 1.2em;
+}
+
+thead {
+    background-color: rgba(255,255,255,0.1);
+    font-weight: bold;
+    text-align: left;
+}
+
+th, td {
+    width: 20%;
+    padding: 9px 15px;
+}
+
+tbody tr {
+    border-top: 1px solid rgba(0,0,0,0.9);
+    background-color: rgba(255,255,255,0.1);
+    transition: background-color 0.2s ease-in;
+    transition: height 0.2s ease-in;
+    height: 65px;
+}
+
+tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.066);
+    height: 100px;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+}
