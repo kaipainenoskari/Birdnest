@@ -45,6 +45,7 @@ tbody tr {
 tbody tr:hover {
     background-color: rgba(0, 0, 0, 0.066);
     height: 100px;
+    cursor: pointer;
 }
 
 h1 {

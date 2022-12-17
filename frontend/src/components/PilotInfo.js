@@ -1,3 +1,5 @@
+import Popup from "./Popup"
+
 const PilotInfo = ({pilots, closestPilot}) => {
     const hideWhenNull = { display: closestPilot === null ? 'none' : '' }
     const showWhenNull = { display: closestPilot === null ? '' : 'none' }
@@ -48,25 +50,25 @@ const PilotInfo = ({pilots, closestPilot}) => {
         <div style={hideWhenNull}>
             <h1>CLOSEST PILOT TO  THE NEST</h1>
             {showClosest(closestPilot)}
-            <h1>ALL DRONES THAT ARE VIOLATING THE NO-FLY ZONE</h1>
-            <table className="content-table">
-                <thead>
+            <h1>ALL PILOTS THAT HAVE VIOLATED THE NO-FLY ZONE IN THE LAST 10 MINUTES</h1>
+            <table>
+                <thead className="headers">
                     <tr>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Email</th>
-                    <th>Distance</th>
-                    <th>Time</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Distance</th>
+                        <th>Time</th>
                     </tr>
                 </thead>
                 <tbody key="violations">
                     {pilots.map(p => 
-                        <tr key={p.id}>
-                        <td>{p.name}</td>
-                        <td>{p.phoneNumber}</td>
-                        <td>{p.email}</td>
-                        <td>{p.distance}</td>
-                        <td>{new Date(p.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric'})}</td>
+                        <tr key={p.id} onClick={() => Popup(p)}>
+                            <td>{p.name}</td>
+                            <td>{p.phoneNumber}</td>
+                            <td>{p.email}</td>
+                            <td>{p.distance}</td>
+                            <td>{new Date(p.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric'})}</td>
                         </tr>
                     )}
                 </tbody>

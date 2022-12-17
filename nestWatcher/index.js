@@ -25,11 +25,6 @@ const checkDistance = (x, y) => {
     )
 }
 
-const API_INTERVAL = 2; // in second
-const TIME_INTERVAL = 10; // in minute
-
-const MAX_STORE_DRONE = TIME_INTERVAL*60 / API_INTERVAL;
-
 const parser = new XMLParser()
 
 const httpsAgent = new https.Agent({ keepAlive: true, timeout: 2000, method: 'GET' })
@@ -78,7 +73,8 @@ const getPilotInfo = (drones) => {
                     phoneNumber: info.phoneNumber,
                     email: info.email,
                     distance: getDistance(drone.positionX, drone.positionY),
-                    time: Date.now()
+                    time: Date.now(),
+                    drone: drone
                 }
                 pilotInfo = [pilot].concat(pilotInfo)
             } else {

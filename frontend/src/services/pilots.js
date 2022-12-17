@@ -1,8 +1,8 @@
 import axios from 'axios'
-const baseUrl = '/violations'
+const url = '/violations'
 
 const getAll = () => {
-    const request = axios.get(baseUrl)
+    const request = axios.get(url)
     const response = request.then(response => response.data)
         .catch((error) => {
             console.log(error)

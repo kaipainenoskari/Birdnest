@@ -1,6 +1,7 @@
 import { useState } from "react"
 import pilotService from './services/pilots'
-import PilotInfo from "./components/PilotInfo"
+import PilotInfo from './components/PilotInfo'
+//import Coordinates from './components/Coordinates'
 import './style.css'
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
   window.onload = updatePilots()
 
   
+      //<Coordinates pilots={pilots} />
   return (
     <div className="App">
       <PilotInfo pilots={pilots} closestPilot={closestPilot}/>
