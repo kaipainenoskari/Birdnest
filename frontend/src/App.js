@@ -1,10 +1,10 @@
 import { useState } from "react"
 import pilotService from './services/pilots'
 import PilotInfo from './components/PilotInfo'
-//import Coordinates from './components/Coordinates'
 import './style.css'
 
 const App = () => {
+  //Stores the pilots and the closest pilot
   const [pilots, setPilots] = useState([])
   const [closestPilot, setClosestPilot] = useState(null)
 
@@ -16,6 +16,7 @@ const App = () => {
     if (allPilots !== undefined) {
       allPilots.forEach(p => {
         if (closestPilot === null || (p.distance < closestPilot.distance)) {
+          //Update the closest pilot
           setClosestPilot(p)
         }
       })
@@ -25,8 +26,6 @@ const App = () => {
 
   window.onload = updatePilots()
 
-  
-      //<Coordinates pilots={pilots} />
   return (
     <div className="App">
       <PilotInfo pilots={pilots} closestPilot={closestPilot}/>

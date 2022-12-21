@@ -13,7 +13,7 @@ app.use(cors())
 //returns distance from origin
 const getDistance = (x, y) => {
     return (
-        Math.floor(Math.sqrt(Math.abs((Number(x)-250000)** 2) + Math.abs((Number(y)-250000)** 2)))
+        (Math.sqrt((x-250000)** 2 + (y-250000)** 2)/1000).toFixed(2)
     )
 }
 
@@ -21,7 +21,7 @@ const getDistance = (x, y) => {
 const checkDistance = (x, y) => {
     const distance = getDistance(x, y)
     return (
-        distance <= 100000
+        distance <= 100
     )
 }
 
@@ -29,6 +29,7 @@ const parser = new XMLParser()
 
 const httpsAgent = new https.Agent({ keepAlive: true, timeout: 2000, method: 'GET' })
 
+//Every two seconds gets information about drones flying nearby
 const getAllDrones = () => {
     const networkPromise = axios.get('https://assignments.reaktor.com/birdnest/drones', { httpsAgent })
     const timeOutPromise = new Promise((resolve, reject) => {
@@ -44,8 +45,9 @@ const getAllDrones = () => {
             getAllDrones()
         })
 }
+getAllDrones()
 
-
+//Checks if violations happen
 const getViolations = (drones) => {
     let allViolators = []
     drones.map((drone) => {
@@ -58,8 +60,8 @@ const getViolations = (drones) => {
     getPilotInfo(allViolators)
 }
 
+//Gets the information of the pilots who violated the NDZ
 let pilotInfo = []
-
 const getPilotInfo = (drones) => {
     drones.map(async (drone) => {
         const infoData = await axios.get(`https://assignments.reaktor.com/birdnest/pilots/${drone.serialNumber}`, { httpsAgent })
@@ -84,16 +86,16 @@ const getPilotInfo = (drones) => {
             }
         }
     })
+    //Filters the pilots out after 10min
     pilotInfo = pilotInfo.filter(pilot => Number(pilot.time) + 600000 >= Number(Date.now()))
 }
 
-getAllDrones()
-
+//Posts the violators
 app.get('/violations', (request, response) => {
     response.end(JSON.stringify(pilotInfo))
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

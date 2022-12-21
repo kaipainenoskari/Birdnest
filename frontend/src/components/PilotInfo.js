@@ -1,8 +1,16 @@
-import Popup from "./Popup"
-
 const PilotInfo = ({pilots, closestPilot}) => {
     const hideWhenNull = { display: closestPilot === null ? 'none' : '' }
     const showWhenNull = { display: closestPilot === null ? '' : 'none' }
+
+    const tableRow = (pilot) => (
+        <tr key={pilot.id}>
+            <td>{pilot.name}</td>
+            <td>{pilot.phoneNumber}</td>
+            <td>{pilot.email}</td>
+            <td>{pilot.distance} meters</td>
+            <td>{new Date(pilot.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric'})}</td>
+        </tr>
+    )
 
     const showClosest = (pilot) => {
         if (pilot !== null) {
@@ -18,35 +26,18 @@ const PilotInfo = ({pilots, closestPilot}) => {
                         </tr>
                     </thead>
                     <tbody key="closestViolator">
-                        <tr>
-                            <td>
-                                {pilot.name}
-                            </td>
-                            <td>
-                                {pilot.phoneNumber}
-                            </td>
-                            <td>
-                                {pilot.email}
-                            </td>
-                            <td>
-                                {pilot.distance}
-                            </td>
-                            <td>
-                                {new Date(pilot.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric'})}
-                            </td>
-                        </tr>
+                        {tableRow(pilot)}
                     </tbody>
                 </table>
-            )
-        } else {
-            return (
-                <h2>No pilots spotted, please let the </h2>
             )
         }
     }
 
     return (
     <div>
+        <a href='https://github.com/kaipainenoskari/Birdnest'>Source code</a>
+        <br/>
+        <a href='https://assignments.reaktor.com/birdnest/'>Assignment</a>
         <div style={hideWhenNull}>
             <h1>CLOSEST PILOT TO  THE NEST</h1>
             {showClosest(closestPilot)}
@@ -63,13 +54,7 @@ const PilotInfo = ({pilots, closestPilot}) => {
                 </thead>
                 <tbody key="violations">
                     {pilots.map(p => 
-                        <tr key={p.id} onClick={() => Popup(p)}>
-                            <td>{p.name}</td>
-                            <td>{p.phoneNumber}</td>
-                            <td>{p.email}</td>
-                            <td>{p.distance}</td>
-                            <td>{new Date(p.time).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric'})}</td>
-                        </tr>
+                        tableRow(p)
                     )}
                 </tbody>
             </table>
